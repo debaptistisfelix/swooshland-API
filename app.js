@@ -10,6 +10,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const rateLimit = require("express-rate-limit");
+const compression = require("compression");
 
 // ROUTES
 const itemRouter = require("./routes/itemRouter");
@@ -47,6 +48,8 @@ app.use(
     whitelist: ["duration", "ratingsQuantity", "ratingsAverage", "price"],
   })
 );
+
+app.use(compression());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
