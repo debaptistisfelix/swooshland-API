@@ -2,7 +2,7 @@
 if (process.env.NODE_ENV !== "prod") {
   require("dotenv").config();
 }
-console.log(process.env);
+
 const mongoose = require("mongoose");
 const app = require("./app");
 const cron = require("node-cron");
