@@ -2,7 +2,7 @@
   "name": "shop-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "start:prod": "NODE_ENV=prod node server.js",
