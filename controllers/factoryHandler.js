@@ -1,7 +1,7 @@
 /* const catchAsync = require("./../utils/catchAsync"); */
 const catchAsync = require("../utils/catchAsync");
 const path = require("path");
-const appError = require("../appErrorX");
+const fuckError = require("../utils/fuckError");
 /* const appError = require(path.join(__dirname, "../utils/appError")); */
 const APIFeatures = require("./../utils/apiFeatures");
 /* const APIFeatures = require(path.join(__dirname, "../utils/APIFeatures")); */
