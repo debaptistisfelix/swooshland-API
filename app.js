@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
-const fuckError = require("./utils/fuckError");
+const appError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -65,7 +65,7 @@ app.use("/api/orders", orderRouter);
 app.use("/api/wishlist", wishlistRouter);
 
 app.all("*", (req, res, next) => {
-  next(new fuckError(`Can't find ${req.originalUrl} on this server`, 404));
+  next(new appError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
 app.use(globalErrorHandler);
