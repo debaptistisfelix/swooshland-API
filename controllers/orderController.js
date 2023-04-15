@@ -1,6 +1,6 @@
 const Order = require("../models/orderModel");
 const factory = require("./factoryHandler");
-const AppError = require("../utils/appError");
+const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const Email = require("../utils/email");
 
@@ -36,7 +36,7 @@ exports.findOrder = catchAsync(async (req, res, next) => {
   } else {
     console.log("NEVER ORDERED");
     return next(
-      new AppError("You need to buy the Item to leave a review", 400)
+      new appError("You need to buy the Item to leave a review", 400)
     );
   }
 

@@ -1,5 +1,5 @@
 const Item = require("../models/itemModel");
-const AppError = require("../utils/appError");
+const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("./factoryHandler");
 
@@ -10,7 +10,7 @@ exports.updateSize = catchAsync(async (req, res, next) => {
   const item = await Item.findById(id);
 
   if (!item) {
-    return next(new AppError("No Item found", 404));
+    return next(new appError("No Item found", 404));
   }
 
   const sizeIndex = item.availableSizes.findIndex(
@@ -18,7 +18,7 @@ exports.updateSize = catchAsync(async (req, res, next) => {
   );
 
   if (sizeIndex === -1) {
-    return next(new AppError("Size option not found for this Item", 404));
+    return next(new appError("Size option not found for this Item", 404));
   }
 
   item.availableSizes[sizeIndex].itemsAvailable -= 1;
@@ -35,7 +35,7 @@ exports.createManyItems = catchAsync(async (req, res, next) => {
   const newItems = await Item.insertMany(req.body);
 
   if (!newItems) {
-    return next(new AppError("There was a problem when inserting docs", 403));
+    return next(new appError("There was a problem when inserting docs", 403));
   }
 
   res.status(201).json({

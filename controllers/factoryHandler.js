@@ -1,17 +1,17 @@
 /* const catchAsync = require("./../utils/catchAsync"); */
 const catchAsync = require("../utils/catchAsync");
 const path = require("path");
-/* const AppError = require("../utils/appError"); */
-const AppError = require(path.join(__dirname, "../utils/appError"));
-/* const APIFeatures = require("/../utils/apiFeatures"); */
-const APIFeatures = require(path.join(__dirname, "../utils/APIFeatures"));
+const appError = require("./../utils/appError");
+/* const appError = require(path.join(__dirname, "../utils/appError")); */
+const APIFeatures = require("./../utils/apiFeatures");
+/* const APIFeatures = require(path.join(__dirname, "../utils/APIFeatures")); */
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(new appError("No document found with that ID", 404));
     }
 
     res.status(204).json({
@@ -28,7 +28,7 @@ exports.updateOne = (Model) =>
     });
 
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(new appError("No document found with that ID", 404));
     }
 
     res.status(200).json({
@@ -58,7 +58,7 @@ exports.getOne = (Model, popOptions) =>
     const doc = await query;
 
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(new appError("No document found with that ID", 404));
     }
 
     res.status(200).json({
