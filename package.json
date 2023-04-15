@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node server.js",
     "start:prod": "NODE_ENV=prod node server.js",
-    "debug": "ndb server.js"
+    "debug": "ndb server.js",
+    "build": "npm install",
+    "deploy": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
