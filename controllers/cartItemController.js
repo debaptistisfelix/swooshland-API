@@ -2,7 +2,7 @@ const CartItem = require("../models/cartItemModel");
 const Item = require("../models/itemModel");
 const factory = require("./factoryHandler");
 const catchAsync = require("../utils/catchAsync");
-const appError = require("../utils/appError");
+const AppError = require("../utils/appError");
 
 // Function to check if you can actually add item to Cart based on Availability
 exports.checkSizesAvailability = catchAsync(async (req, res, next) => {
@@ -11,20 +11,20 @@ exports.checkSizesAvailability = catchAsync(async (req, res, next) => {
 
   const item = await Item.findById(itemId);
 
-  if (!item) return next(new appError("No item with this id was found", 404));
+  if (!item) return next(new AppError("No item with this id was found", 404));
 
   const sizeIndex = item.availableSizes.findIndex(
     (el) => el.EUSize === chosenSize
   );
 
-  if (sizeIndex === -1) return next(new appError("Size non found", 404));
+  if (sizeIndex === -1) return next(new AppError("Size non found", 404));
 
   if (
     item.availableSizes[sizeIndex].itemsAvailable <=
     item.availableSizes[sizeIndex].reserved
   ) {
     return next(
-      new appError(
+      new AppError(
         "All Items in this Size have been reserved. Check later if they're available again",
         403
       )
@@ -64,7 +64,7 @@ exports.createItem = catchAsync(async (req, res, next) => {
   const cartItem = await CartItem.create(req.body);
 
   if (!cartItem) {
-    return next(new appError("Error during creation of cartItem", 400));
+    return next(new AppError("Error during creation of cartItem", 400));
   }
 
   const sizeIndex = item.availableSizes.findIndex(
@@ -72,7 +72,7 @@ exports.createItem = catchAsync(async (req, res, next) => {
   );
 
   if (sizeIndex === -1) {
-    return next(new appError("Size option not found for this Item", 404));
+    return next(new AppError("Size option not found for this Item", 404));
   }
 
   item.availableSizes[sizeIndex].reserved += 1;
@@ -92,7 +92,7 @@ exports.updateItemAfterCartItemDeletion = catchAsync(async (req, res, next) => {
   const cartItem = await CartItem.findById(req.params.id);
 
   if (!cartItem) {
-    return next(new appError("No Document with this ID", 404));
+    return next(new AppError("No Document with this ID", 404));
   }
 
   const itemId = cartItem.itemId;
@@ -101,7 +101,7 @@ exports.updateItemAfterCartItemDeletion = catchAsync(async (req, res, next) => {
   const item = await Item.findById(itemId);
 
   if (!item) {
-    return next(new appError("Error during search for item", 400));
+    return next(new AppError("Error during search for item", 400));
   }
 
   const sizeIndex = item.availableSizes.findIndex(
@@ -109,7 +109,7 @@ exports.updateItemAfterCartItemDeletion = catchAsync(async (req, res, next) => {
   );
 
   if (sizeIndex === -1) {
-    return next(new appError("Size option not found for this Item", 404));
+    return next(new AppError("Size option not found for this Item", 404));
   }
 
   item.availableSizes[sizeIndex].reserved -= 1;
@@ -124,7 +124,7 @@ exports.updateItemsAfterCartItemsDeletion = catchAsync(
     console.log(cartItems);
 
     if (!cartItems) {
-      return next(new appError("No Documents with this ID were found", 404));
+      return next(new AppError("No Documents with this ID were found", 404));
     }
 
     for (const cartItem of cartItems) {
@@ -134,7 +134,7 @@ exports.updateItemsAfterCartItemsDeletion = catchAsync(
       const item = await Item.findById(itemId);
 
       if (!item) {
-        return next(new appError("No Document found with this Id", 404));
+        return next(new AppError("No Document found with this Id", 404));
       }
 
       let sizeIndex = -1;
@@ -147,7 +147,7 @@ exports.updateItemsAfterCartItemsDeletion = catchAsync(
 
       if (sizeIndex === -1) {
         return next(
-          new appError("Size Option not available for this Product", 404)
+          new AppError("Size Option not available for this Product", 404)
         );
       }
 
@@ -163,7 +163,7 @@ exports.deleteItem = catchAsync(async (req, res, next) => {
   const doc = await CartItem.findByIdAndDelete(req.params.id);
 
   if (!doc) {
-    return next(new appError("No document found with that ID", 404));
+    return next(new AppError("No document found with that ID", 404));
   }
 
   res.status(204).json({
@@ -191,7 +191,7 @@ const updateInventoryAfterExpiration = catchAsync(async (cartItem) => {
   const item = await Item.findById(itemId);
 
   if (!item) {
-    return next(new appError("No Document found with tihs ID", 404));
+    return next(new AppError("No Document found with tihs ID", 404));
   }
 
   const sizeIndex = item.availableSizes.findIndex(
@@ -199,7 +199,7 @@ const updateInventoryAfterExpiration = catchAsync(async (cartItem) => {
   );
 
   if (sizeIndex === -1) {
-    throw new appError("Size option not found for this Item", 404);
+    throw new AppError("Size option not found for this Item", 404);
   }
 
   item.availableSizes[sizeIndex].reserved -= 1;

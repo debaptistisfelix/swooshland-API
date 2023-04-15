@@ -1,7 +1,7 @@
 const Review = require("../models/reviewModel");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("../controllers/factoryHandler");
-const appError = require("../utils/appError");
+const AppError = require("../utils/appError");
 const APIFeatures = require("./../utils/apiFeatures");
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
@@ -28,7 +28,7 @@ exports.checkIfReviewed = catchAsync(async (req, res, next) => {
   if (reviewUser.length === 0) {
     return next();
   } else {
-    return next(new appError("User Has already reviewed this product.", 400));
+    return next(new AppError("User Has already reviewed this product.", 400));
   }
 });
 
@@ -97,7 +97,7 @@ exports.checkIfReviewAuthor = catchAsync(async (req, res, next) => {
   if (review.user.id === req.user.id || user.role === "admin") {
     return next();
   } else {
-    return next(new appError("Only the Author can delete his/her review", 403));
+    return next(new AppError("Only the Author can delete his/her review", 403));
   }
 });
 

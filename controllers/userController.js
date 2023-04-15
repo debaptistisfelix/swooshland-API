@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
-const appError = require("../utils/appError");
+const AppError = require("../utils/appError");
 const factory = require("../controllers/factoryHandler");
 const Email = require("../utils/email");
 
@@ -16,7 +16,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
-      new appError(
+      new AppError(
         "This route is not for password updates. Please use /updateMyPassword.",
         400
       )
@@ -48,7 +48,7 @@ exports.getMe = (req, res, next) => {
 exports.newsletterSubscribe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
     return next(
-      new appError(
+      new AppError(
         "This route is not for password updates. Please use /updateMyPassword.",
         400
       )
@@ -57,9 +57,9 @@ exports.newsletterSubscribe = catchAsync(async (req, res, next) => {
 
   const EmailUser = await User.findOne({ email: req.body.email });
   if (!EmailUser) {
-    return next(new appError("No user with this Email.", 400));
+    return next(new AppError("No user with this Email.", 400));
   } else if (EmailUser.newsletterSub === true) {
-    return next(new appError("Email Already Submitted", 400));
+    return next(new AppError("Email Already Submitted", 400));
   } else {
     try {
       const subscribedUser = await User.findByIdAndUpdate(
@@ -82,7 +82,7 @@ exports.newsletterSubscribe = catchAsync(async (req, res, next) => {
       });
     } catch (err) {
       return next(
-        new appError(
+        new AppError(
           "There was an error sending the confirmation email. Try again later!"
         ),
         500

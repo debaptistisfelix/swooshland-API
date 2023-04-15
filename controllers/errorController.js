@@ -1,28 +1,28 @@
-const appError = require("../utils/appError");
+const AppError = require("../utils/appError");
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
-  return new appError(message, 404);
+  return new AppError(message, 404);
 };
 
 const handleDuplicateErrorDB = (err) => {
   const field = Object.keys(err.keyValue)[0];
   const value = err.keyValue[field];
   const message = `Duplicate field value: ${value}. Please use another value.`;
-  return new appError(message, 400);
+  return new AppError(message, 400);
 };
 
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
   const message = `Invalid input data.${errors.join(". ")}`;
-  return new appError(message, 400);
+  return new AppError(message, 400);
 };
 
 const handleJWTError = () =>
-  new appError("Invalid token. Please log in again!", 401);
+  new AppError("Invalid token. Please log in again!", 401);
 
 const handleJWTExpiredError = () =>
-  new appError("Your token has expired! Please log in again.", 401);
+  new AppError("Your token has expired! Please log in again.", 401);
 
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
