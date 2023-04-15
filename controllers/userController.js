@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
-const appError = require("../utils/appError");
+/* const appError = require("../utils/appError"); */
+const appError = require("../appErrorX");
 const factory = require("../controllers/factoryHandler");
 const Email = require("../utils/email");
 

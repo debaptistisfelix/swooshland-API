@@ -1,7 +1,8 @@
 const Review = require("../models/reviewModel");
 const catchAsync = require("../utils/catchAsync");
 const factory = require("../controllers/factoryHandler");
-const appError = require("../utils/appError");
+/* const appError = require("../utils/appError"); */
+const appError = require("../appErrorX");
 const APIFeatures = require("./../utils/apiFeatures");
 const User = require("../models/userModel");
 const mongoose = require("mongoose");

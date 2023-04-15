@@ -2,7 +2,8 @@ const CartItem = require("../models/cartItemModel");
 const Item = require("../models/itemModel");
 const factory = require("./factoryHandler");
 const catchAsync = require("../utils/catchAsync");
-const appError = require("../utils/appError");
+/* const appError = require("../utils/appError"); */
+const appError = require("../appErrorX");
 
 // Function to check if you can actually add item to Cart based on Availability
 exports.checkSizesAvailability = catchAsync(async (req, res, next) => {
