@@ -3,7 +3,6 @@ const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
-/* const appError = require("./utils/AppError"); */
 const appError = require("./appErrorX");
 const globalErrorHandler = require("./controllers/errorController");
 const helmet = require("helmet");
