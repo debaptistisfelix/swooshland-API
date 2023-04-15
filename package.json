@@ -1,7 +1,6 @@
 {
   "name": "shop-server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -31,5 +30,15 @@
     "pug": "^3.0.2",
     "validator": "^13.9.0",
     "xss-clean": "^0.1.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debaptistisfelix/swooshland-API.git"
+  },
+  "bugs": {
+    "url": "https://github.com/debaptistisfelix/swooshland-API/issues"
+  },
+  "homepage": "https://github.com/debaptistisfelix/swooshland-API#readme",
+  "description": ""
 }
