@@ -22,16 +22,17 @@ mongoose.connect(database, {
 });
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("MONGO CONNECTION OPEN"));
+db.once("open", () => {
+  console.log("MONGO CONNECTION OPEN");
+  app.listen(port, () => {
+    console.log(`LISTENING TO PORT ${port}`);
+  });
+});
 
 const port = process.env.PORT || 8000;
 
 cron.schedule("*/10 * * * *", async () => {
   deleteExpiredCartItems();
-});
-
-app.listen(port, () => {
-  console.log(`LISTENING TO PORT ${port}`);
 });
 
 process.on("unhandledRejection", (err) => {
