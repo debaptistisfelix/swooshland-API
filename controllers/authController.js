@@ -128,7 +128,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   )}/api/users/resetPassword/${resetToken}`; */
 
   try {
-    const resetURL = `${req.protocol}://localhost:5173/resetPassword/${resetToken}`;
+    const resetURL = `${req.protocol}://swooshland-customs.netlify.app/resetPassword/${resetToken}`;
     await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({
